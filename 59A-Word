@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+
+
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;
+    int upper = 0, lower = 0;
+
+    for (char c : s) {
+        if (c >= 'A' && c <= 'Z') upper++;
+        else lower++;
+    }
+
+    if (upper > lower) {
+        for (char &c : s) if (c >= 'a' && c <= 'z') c = c - 'a' + 'A';
+    } else {
+        for (char &c : s) if (c >= 'A' && c <= 'Z') c = c - 'A' + 'a';
+    }
+
+    cout << s << "\n";
+}
