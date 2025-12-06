@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n; double T;
+    cin >> n >> T;
+    vector<double> a(n), t(n);
+    for(int i=0;i<n;i++) cin >> a[i];
+    for(int i=0;i<n;i++) cin >> t[i];
+
+    vector<pair<double,double>> cold, hot;
+    double neutral = 0;
+    for(int i=0;i<n;i++){
+        if(t[i]==T) neutral += a[i];
+        else if(t[i]<T) cold.push_back({T - t[i], a[i]});
+        else hot.push_back({t[i] - T, a[i]});
+    }
+
+    sort(cold.begin(), cold.end());
+    sort(hot.begin(), hot.end());
+
+    double sum_c=0, sum_h=0;
+    int i=0,j=0;
+    while(i<cold.size() && j<hot.size()){
+        double take = min(cold[i].second * cold[i].first, hot[j].second * hot[j].first);
+        sum_c += take / cold[i].first;
+        sum_h += take / hot[j].first;
+        cold[i].second -= take / cold[i].first;
+        hot[j].second -= take / hot[j].first;
+        if(cold[i].second==0) i++;
+        if(hot[j].second==0) j++;
+    }
+
+    double ans = neutral + sum_c + sum_h;
+    cout << fixed << setprecision(12) << ans << "\n";
+}
