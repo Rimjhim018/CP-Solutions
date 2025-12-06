@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+long long getMask(long long x){
+    long long m=0;
+    while(x){
+        m |= 1LL << (x%10);
+        x/=10;
+    }
+    return m;
+}
+
+int main(){
+    long long n;
+    cin >> n;
+    vector<long long> dist;
+    unordered_map<long long,int> vis;
+    deque<long long> dq;
+    dq.push_back(n);
+    vis[n]=0;
+
+    while(!dq.empty()){
+        long long x = dq.front();
+        dq.pop_front();
+        if(x==0){
+            cout << vis[x];
+            return 0;
+        }
+        long long m = getMask(x);
+        for(int d=1; d<=9; d++){
+            if(m&(1LL<<d)){
+                long long y = x - d;
+                if(!vis.count(y)){
+                    vis[y] = vis[x] + 1;
+                    dq.push_back(y);
+                }
+            }
+        }
+    }
+    return 0;
+}
