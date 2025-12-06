@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool beautiful(long long x) {
+    long long y = x;
+    while (y > 0) {
+        long long d = y % 10;
+        if(d != 0 && x % d != 0) return false;
+        y /= 10;
+    }
+    return true;
+}
+
+int main() {
+    int t;
+    cin >> t;
+    while(t--) {
+        long long l, r;
+        cin >> l >> r;
+        long long count = 0;
+        for(long long i = l; i <= r; i++){
+            if(beautiful(i)) count++;
+        }
+        cout << count << endl;
+    }
+}
