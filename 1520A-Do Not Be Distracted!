@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+    while(t--) {
+        int n;
+        cin >> n;
+        string s;
+        cin >> s;
+
+        set<char> used;
+        char prev = s[0];
+        bool suspicious = false;
+        used.insert(prev);
+
+        for(int i = 1; i < n; i++) {
+            if(s[i] != prev) {
+                if(used.count(s[i])) {
+                    suspicious = true;
+                    break;
+                }
+                used.insert(s[i]);
+                prev = s[i];
+            }
+        }
+
+        cout << (suspicious ? "NO" : "YES") << endl;
+    }
+    return 0;
+}
+
