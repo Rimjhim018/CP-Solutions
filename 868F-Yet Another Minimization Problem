@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n+1);
+    for(int i = 1; i <= n; i++) cin >> a[i];
+
+    vector<vector<long long>> dp(n+1, vector<long long>(k+1, 1e18));
+    dp[0][0] = 0;
+
+    for(int seg = 1; seg <= k; seg++){
+        for(int i = 1; i <= n; i++){
+            unordered_map<int,int> freq;
+            long long cost = 0;
+            for(int p = i; p >= 1; p--){
+                cost += freq[a[p]];
+                freq[a[p]]++;
+                dp[i][seg] = min(dp[i][seg], dp[p-1][seg-1] + cost);
+            }
+        }
+    }
+
+    cout << dp[n][k] << endl;
+}
