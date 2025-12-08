@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+    int cnt = 0;
+    for (int a = 0; a <= n; a++) {
+        int b2 = n - a*a;
+        if (b2 >= 0) {
+            int b = sqrt(b2);
+            if (b*b == b2 && a + b*b == m) cnt++;
+        }
+    }
+    cout << cnt;
+}
